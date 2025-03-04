@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export default function ProductCard({ product }) {
   const image = product.images.edges[0]?.node || null;
   const price = parseFloat(product.priceRange.minVariantPrice.amount);
   const currencyCode = product.priceRange.minVariantPrice.currencyCode;
 
-  const formatter = new Intl.NumberFormat('en-US', {
+  const formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: currencyCode,
   });

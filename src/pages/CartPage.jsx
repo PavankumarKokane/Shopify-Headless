@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useCart } from '../context/CartContext';
 import { Trash2, ShoppingBag } from 'lucide-react';
 
@@ -10,9 +10,9 @@ export default function CartPage() {
     return total + parseFloat(item.price) * item.quantity;
   }, 0);
 
-  const formatter = new Intl.NumberFormat('en-US', {
+  const formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'INR',
   });
 
   if (loading) {

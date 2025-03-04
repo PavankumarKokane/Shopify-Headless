@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import { getProductByHandle } from "../lib/shopify";
 import { useCart } from "../context/CartContext";
 import { ShoppingCart } from "lucide-react";

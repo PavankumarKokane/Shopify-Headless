@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { getFeaturedProducts, getCollections } from '../lib/shopify';
 import ProductCard from '../components/ProductCard';
 import CollectionCard from '../components/CollectionCard';
