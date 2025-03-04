@@ -1,14 +1,15 @@
-import { GraphQLClient } from 'graphql-request';
+import { GraphQLClient } from "graphql-request";
 
 const domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
-const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+const storefrontAccessToken = import.meta.env
+  .VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
 const endpoint = `https://${domain}/api/2025-01/graphql.json`;
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
-    'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
-    'Content-Type': 'application/json',
+    "X-Shopify-Storefront-Access-Token": storefrontAccessToken,
+    "Content-Type": "application/json",
   },
 });
 
@@ -79,7 +80,7 @@ export async function getCollections() {
     const variables = { cursor };
 
     const response = await graphQLClient.request(query, variables);
-    
+
     const newCollections = response.collections.edges.map((edge) => edge.node);
     collections = [...collections, ...newCollections];
 
@@ -140,8 +141,10 @@ export async function getProductsByCollection(collectionHandle) {
     };
 
     response = await graphQLClient.request(query, variables);
-    
-    const newProducts = response.collection.products.edges.map((edge) => edge.node);
+
+    const newProducts = response.collection.products.edges.map(
+      (edge) => edge.node
+    );
     products = [...products, ...newProducts];
 
     hasNextPage = response.collection.products.pageInfo.hasNextPage;
@@ -164,6 +167,7 @@ export async function getProductByHandle(handle) {
         handle
         description
         descriptionHtml
+        productType
         options {
           id
           name
@@ -193,6 +197,10 @@ export async function getProductByHandle(handle) {
               altText
             }
           }
+        }
+        metafields(identifiers: [{key: "gender", namespace: "custom"},{key: "age_group", namespace: "custom"},{key: "brand", namespace: "custom"},{key: "product_care", namespace: "custom"},{key: "product_details", namespace: "custom"}]) {
+          value
+          key
         }
       }
     }

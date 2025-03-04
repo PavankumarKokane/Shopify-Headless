@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getProductByHandle } from '../lib/shopify';
 import { useCart } from '../context/CartContext';
 import { ShoppingCart } from 'lucide-react';
+import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer'
 
 export default function ProductPage() {
   const { handle } = useParams();
@@ -14,6 +15,8 @@ export default function ProductPage() {
   const [error, setError] = useState('');
   const [addingToCart, setAddingToCart] = useState(false);
   const [activeImage, setActiveImage] = useState('');
+  const [activeTab, setActiveTab] = useState("description");
+
   
   const { addToCart } = useCart();
 
@@ -135,6 +138,26 @@ export default function ProductPage() {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: selectedVariant?.price.currencyCode || 'USD',
+  });
+
+  const productDetails = product?.metafields?.find(metafield => metafield.key === "product_details")?.value;
+  const productDetailsHTML = convertSchemaToHtml(productDetails);
+  const productCare = product?.metafields?.find(metafield => metafield.key === "product_care")?.value;
+  const productCareHTML = convertSchemaToHtml(productCare);
+  const brand = product?.metafields?.find(metafield => metafield.key === "brand")?.value;
+  const age_group = product?.metafields?.find(metafield => metafield.key === "age_group")?.value;
+  const gender = product?.metafields?.find(metafield => metafield.key === "gender")?.value;
+  //console.log(gender);
+  const genderMetaObjects = {
+    "gid://shopify/Metaobject/82952585273": "Male",
+    "gid://shopify/Metaobject/82952618041": "Female",
+    "gid://shopify/Metaobject/82953175097": "Unisex",
+  };
+
+  const gender_string = gender.replace(/\[|\]|"/g, "");
+  const genderArray = gender_string.split(",");
+  const genderLables = genderArray.map((item)=>{
+    return genderMetaObjects[item];
   });
 
   return (
@@ -286,6 +309,98 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+      <div className="p-10">
+      {/* Tab Navigation */}
+      <div className="flex border-b">
+        {["description", "more-info", "care", "customer-care"].map((tab) => (
+          <button
+            key={tab}
+            className={`py-2 px-4 text-gray-500 ${
+              activeTab === tab ? "text-black font-semibold border-b-2 border-black" : ""
+            }`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab
+              .replace("-", " ")
+              .replace(/\b\w/g, (char) => char.toUpperCase())}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab Content */}
+      <div className="mt-4">
+        {activeTab === "description" && (
+          <div className="p-4 border rounded">
+            <div className="text-gray-600">
+              <div dangerouslySetInnerHTML={{ __html: productDetailsHTML }} />
+            </div>
+          </div>
+        )}
+
+        {activeTab === "more-info" && (
+          <div className="p-4 border rounded">
+            <table className="w-full border">
+              <tbody>
+                {
+                  brand && (
+                    <tr className="border-b">
+                      <td className="p-2 font-semibold">Brand</td>
+                      <td className="p-2">{brand}</td>
+                    </tr>
+                  )
+                }
+                <tr className="border-b">
+                  <td className="p-2 font-semibold">Manufacturer</td>
+                  <td className="p-2">Rupa Corporate</td>
+                </tr>
+                {
+                  product.productType && (
+                    <tr className="border-b">
+                      <td className="p-2 font-semibold">Type</td>
+                      <td className="p-2">{product.productType}</td>
+                    </tr>
+                  )
+                }
+                {
+                  genderLables.length > 0 && (
+                    <tr className="border-b">
+                      <td className="p-2 font-semibold">Gender</td>
+                      <td className="p-2">{ genderLables.join(", ") }</td>
+                    </tr>
+                  )
+                }
+                {
+                  age_group && age_group != "undefined" && (
+                    <tr>
+                      <td className="p-2 font-semibold">Age Group</td>
+                      <td className="p-2">{age_group}</td>
+                    </tr>
+                  )
+                }
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {activeTab === "care" && (
+          <div className="p-4 border rounded">
+            <div className="text-gray-600">
+              <div dangerouslySetInnerHTML={{ __html: productCareHTML }} />
+            </div>
+          </div>
+        )}
+
+        {activeTab === "customer-care" && (
+          <div className="p-4 border rounded">
+            <div className="text-gray-600">
+            <p><strong>Customer care details :</strong></p>
+            <p>E-Mail : <a href="mailto:customer.care@rupa.co.in" title="mailto:customer.care@rupa.co.in">customer.care@rupa.co.in</a></p>
+            <p>SMS RUPA to 53456 or Call Toll Free No. <a href="tel:18001235001" title="tel:18001235001">1800 1235 001</a></p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
     </div>
   );
 }
