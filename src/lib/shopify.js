@@ -4,7 +4,7 @@ const domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
 const storefrontAccessToken = import.meta.env
   .VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
-const endpoint = `https://${domain}/api/2025-01/graphql.json`;
+const endpoint = `https://${domain}/api/2024-04/graphql.json`;
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   headers: {

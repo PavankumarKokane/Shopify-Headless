@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function CollectionCard({ collection }) {
+export default function CollectionCard({ collection }) {  
   return (
     <Link to={`/collections/${collection.handle}`} className="group">
       <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
@@ -24,8 +24,8 @@ export default function CollectionCard({ collection }) {
           />
         ) : (
           <img
-            src={collection.products.nodes[0].featuredImage.url}
-            alt={collection.products.nodes[0].featuredImage.altText || collection.title}
+            src={collection.products.nodes[0]?.featuredImage.url}
+            alt={collection.products.nodes[0]?.featuredImage.altText || collection.title}
             className="w-full h-full aspect-square object-center object-cover group-hover:opacity-75"
           />
         )}

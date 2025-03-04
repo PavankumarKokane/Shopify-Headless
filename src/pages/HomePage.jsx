@@ -19,7 +19,6 @@ export default function HomePage() {
           getCollections()
         ]);
         setFeaturedProducts(productsData);
-        console.log(collectionsData);
         setCollections(collectionsData.slice(0, 4)); // Only show first 3 collections
       } catch (err) {
         console.error('Error fetching data:', err);
