@@ -67,6 +67,16 @@ export async function getCollections() {
                 url
                 altText
               }
+              products(first: 1) {
+                nodes {
+                  id
+                  featuredImage {
+                    url
+                    altText
+                  }
+                  handle
+                }
+              }
             }
           }
           pageInfo {
