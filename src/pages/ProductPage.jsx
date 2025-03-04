@@ -147,7 +147,7 @@ export default function ProductPage() {
               <img
                 src={activeImage}
                 alt={product.title}
-                className="w-full h-full object-center object-cover"
+                className="w-full h-full object-center object-cover aspect-[3/4]"
               />
             </div>
             
@@ -163,9 +163,10 @@ export default function ProductPage() {
                     onClick={() => setActiveImage(edge.node.url)}
                   >
                     <img
+                      loading='lazy'
                       src={edge.node.url}
                       alt={edge.node.altText || `Product image ${idx + 1}`}
-                      className="w-full h-full object-center object-cover"
+                      className="w-full h-full object-center object-cover aspect-[3/4]"
                     />
                   </div>
                 ))}
@@ -205,7 +206,7 @@ export default function ProductPage() {
                     <div key={option.id} className="mt-4">
                       <h3 className="text-sm text-gray-600">{option.name}</h3>
                       <div className="mt-2">
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center flex-wrap gap-3">
                           {option.values.map((value) => (
                             <button
                               key={value}

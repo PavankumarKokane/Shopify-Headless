@@ -3,7 +3,7 @@ import { GraphQLClient } from 'graphql-request';
 const domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
 const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
-const endpoint = `https://${domain}/api/2023-10/graphql.json`;
+const endpoint = `https://${domain}/api/2025-01/graphql.json`;
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
@@ -16,7 +16,7 @@ export const graphQLClient = new GraphQLClient(endpoint, {
 export async function getFeaturedProducts() {
   const query = `
     {
-      products(first: 8) {
+      products(first: 12) {
         edges {
           node {
             id
@@ -49,70 +49,108 @@ export async function getFeaturedProducts() {
 
 // Get collections
 export async function getCollections() {
-  const query = `
-    {
-      collections(first: 10) {
-        edges {
-          node {
-            id
-            title
-            handle
-            image {
-              url
-              altText
-            }
-          }
-        }
-      }
-    }
-  `;
+  let collections = [];
+  let hasNextPage = true;
+  let cursor = null;
 
-  const response = await graphQLClient.request(query);
-  return response.collections.edges.map((edge) => edge.node);
-}
-
-// Get products by collection
-export async function getProductsByCollection(collectionHandle) {
-  const query = `
-    query getProductsByCollection($handle: String!) {
-      collection(handle: $handle) {
-        title
-        products(first: 20) {
+  while (hasNextPage) {
+    const query = `
+      query getCollections($cursor: String) {
+        collections(first: 50, after: $cursor) {
           edges {
             node {
               id
               title
               handle
-              description
-              priceRange {
-                minVariantPrice {
-                  amount
-                  currencyCode
-                }
+              image {
+                url
+                altText
               }
-              images(first: 1) {
-                edges {
-                  node {
-                    url
-                    altText
+            }
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    `;
+
+    const variables = { cursor };
+
+    const response = await graphQLClient.request(query, variables);
+    
+    const newCollections = response.collections.edges.map((edge) => edge.node);
+    collections = [...collections, ...newCollections];
+
+    hasNextPage = response.collections.pageInfo.hasNextPage;
+    cursor = response.collections.pageInfo.endCursor;
+  }
+
+  return collections;
+}
+
+// Get products by collection
+export async function getProductsByCollection(collectionHandle) {
+  let products = [];
+  let hasNextPage = true;
+  let cursor = null;
+  let response;
+
+  while (hasNextPage) {
+    const query = `
+      query getProductsByCollection($handle: String!, $cursor: String) {
+        collection(handle: $handle) {
+          title
+          products(first: 50, after: $cursor) {
+            edges {
+              node {
+                id
+                title
+                handle
+                description
+                priceRange {
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
+                images(first: 1) {
+                  edges {
+                    node {
+                      url
+                      altText
+                    }
                   }
                 }
               }
             }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       }
-    }
-  `;
+    `;
 
-  const variables = {
-    handle: collectionHandle,
-  };
+    const variables = {
+      handle: collectionHandle,
+      cursor: cursor,
+    };
 
-  const response = await graphQLClient.request(query, variables);
+    response = await graphQLClient.request(query, variables);
+    
+    const newProducts = response.collection.products.edges.map((edge) => edge.node);
+    products = [...products, ...newProducts];
+
+    hasNextPage = response.collection.products.pageInfo.hasNextPage;
+    cursor = response.collection.products.pageInfo.endCursor;
+  }
+
   return {
     title: response.collection.title,
-    products: response.collection.products.edges.map((edge) => edge.node),
+    products,
   };
 }
 

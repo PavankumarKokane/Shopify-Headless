@@ -16,9 +16,10 @@ export default function ProductCard({ product }) {
       <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
         {image ? (
           <img
+            loading='lazy'
             src={image.url}
             alt={image.altText || product.title}
-            className="w-full h-full object-center object-cover group-hover:opacity-75"
+            className="w-full h-full object-center object-cover group-hover:opacity-75 aspect-[3/4]"
           />
         ) : (
           <div className="w-full h-64 flex items-center justify-center bg-gray-200">
