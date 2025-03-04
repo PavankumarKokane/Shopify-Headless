@@ -31,7 +31,7 @@ export default function CollectionPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
       </div>
     );
   }
@@ -52,7 +52,7 @@ export default function CollectionPage() {
         <p className="text-gray-700 mb-8">The collection you're looking for doesn't exist.</p>
         <Link
           to="/collections"
-          className="inline-block bg-indigo-600 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-indigo-700"
+          className="inline-block bg-red-600 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-red-700"
         >
           View All Collections
         </Link>
@@ -62,7 +62,7 @@ export default function CollectionPage() {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:max-w-full 2xl:px-[5%]">
         <div className="py-16">
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
             {collection.title}
@@ -73,7 +73,7 @@ export default function CollectionPage() {
             </p>
             <Link
               to="/collections"
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="text-sm font-medium text-red-600 hover:text-red-500"
             >
               ← Back to collections
             </Link>

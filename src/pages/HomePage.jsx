@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { getFeaturedProducts, getCollections } from '../lib/shopify';
 import ProductCard from '../components/ProductCard';
 import CollectionCard from '../components/CollectionCard';
+import Banner from '../components/Banner';
 
 export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -34,7 +35,7 @@ export default function HomePage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
       </div>
     );
   }
@@ -51,32 +52,7 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero section */}
-      <div className="relative">
-        <div className="absolute inset-0">
-          <img
-            className="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-            alt="Store hero"
-          />
-          <div className="absolute inset-0 bg-gray-600 mix-blend-multiply" aria-hidden="true"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Welcome to our Store
-          </h1>
-          <p className="mt-6 text-xl text-white max-w-3xl">
-            Discover our curated collection of premium products.
-          </p>
-          <div className="mt-10">
-            <Link
-              to="/collections"
-              className="inline-block bg-white py-3 px-8 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50"
-            >
-              Shop Now
-            </Link>
-          </div>
-        </div>
-      </div>
+      <Banner />
 
       {/* Featured collections */}
       <div className='px-4 sm:px-6 lg:px-8'>
@@ -91,7 +67,7 @@ export default function HomePage() {
         <div className="mt-8 text-center">
           <Link
             to="/collections"
-            className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+            className="text-base font-medium text-red-600 hover:text-red-500"
           >
             View all collections
             <span aria-hidden="true"> &rarr;</span>
@@ -112,7 +88,7 @@ export default function HomePage() {
         <div className="mt-8 text-center">
           <Link
             to="/collections"
-            className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+            className="text-base font-medium text-red-600 hover:text-red-500"
           >
             View all products
             <span aria-hidden="true"> &rarr;</span>

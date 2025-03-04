@@ -8,3 +8,12 @@ ul{
 li{
     list-style-type: disc;
 }
+.slick-next:before,
+.slick-prev:before{
+    content: unset;
+}
+.slick-prev,
+.slick-next{
+    width: fit-content;
+    height: auto;
+}

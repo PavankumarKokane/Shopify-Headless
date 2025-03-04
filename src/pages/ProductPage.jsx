@@ -105,7 +105,7 @@ export default function ProductPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
       </div>
     );
   }
@@ -130,7 +130,7 @@ export default function ProductPage() {
         </p>
         <Link
           to="/collections"
-          className="inline-block bg-indigo-600 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-indigo-700"
+          className="inline-block bg-red-600 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-red-700"
         >
           Continue Shopping
         </Link>
@@ -180,7 +180,7 @@ export default function ProductPage() {
 
   return (
     <div className="bg-white">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 2xl:max-w-full 2xl:px-[5%]">
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-8">
           {/* Product images */}
           <div className="lg:max-w-lg lg:self-end">
@@ -200,7 +200,7 @@ export default function ProductPage() {
                     key={idx}
                     className={`aspect-w-1 aspect-h-1 rounded-md overflow-hidden cursor-pointer ${
                       activeImage === edge.node.url
-                        ? "ring-2 ring-indigo-500"
+                        ? "ring-2 ring-red-500"
                         : ""
                     }`}
                     onClick={() => setActiveImage(edge.node.url)}
@@ -263,7 +263,7 @@ export default function ProductPage() {
                                 px-3 py-2 text-sm border rounded-md
                                 ${
                                   selectedOptions[option.name] === value
-                                    ? "bg-indigo-600 text-white"
+                                    ? "bg-red-600 text-white"
                                     : "border-gray-300 text-gray-900 hover:bg-gray-50"
                                 }
                               `}
@@ -318,7 +318,7 @@ export default function ProductPage() {
                 <div className="mt-8 flex">
                   <button
                     type="button"
-                    className="flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                    className="flex-1 bg-red-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
                     onClick={handleAddToCart}
                     disabled={
                       addingToCart || !selectedVariant?.availableForSale

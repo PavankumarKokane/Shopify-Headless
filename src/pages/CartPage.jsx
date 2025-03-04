@@ -18,7 +18,7 @@ export default function CartPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
       </div>
     );
   }
@@ -37,7 +37,7 @@ export default function CartPage() {
           <div className="mt-6">
             <Link
               to="/collections"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               Continue Shopping
             </Link>
@@ -48,7 +48,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8 2xl:max-w-full 2xl:px-[5%]">
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         Shopping Cart
       </h1>
@@ -99,7 +99,7 @@ export default function CartPage() {
                         name={`quantity-${item.id}`}
                         value={item.quantity}
                         onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
-                        className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm"
                       >
                         {[...Array(10)].map((_, i) => (
                           <option key={i + 1} value={i + 1}>
@@ -111,7 +111,7 @@ export default function CartPage() {
 
                     <button
                       type="button"
-                      className="ml-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      className="ml-4 text-sm font-medium text-red-600 hover:text-red-500"
                       onClick={() => removeFromCart(item.id)}
                     >
                       <Trash2 className="h-5 w-5" />
@@ -147,7 +147,7 @@ export default function CartPage() {
               href={checkoutUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full bg-red-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               Checkout
             </a>
