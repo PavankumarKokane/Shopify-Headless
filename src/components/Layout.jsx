@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
+import { data, Link } from 'react-router';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import logo from "../assets/rupa_logo.png";
@@ -114,9 +114,9 @@ export default function Layout({ children }) {
       </main>
 
       <footer className="bg-white">
-        <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8 2xl:max-w-full 2xl:px-[5%]">
+        <div className="max-w-7xl mx-auto py-6 px-4 overflow-hidden sm:px-6 lg:px-8 2xl:max-w-full 2xl:px-[5%]">
           <p className="mt-8 text-center text-base text-gray-400">
-            &copy; 2025 ShopifyHeadless, Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Rupa, Inc. All rights reserved.
           </p>
         </div>
       </footer>

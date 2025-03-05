@@ -8,7 +8,7 @@ function SampleNextArrow(props) {
   const { className, onClick } = props;
   return (
     <div
-      className={`${className} absolute top-1/2 right-0 z-50 transform -translate-y-1/2 cursor-pointer`}
+      className={`${className} absolute top-1/2 right-3 z-50 transform -translate-y-1/2 cursor-pointer`}
       onClick={onClick}
     >
       <svg
@@ -39,7 +39,7 @@ function SamplePrevArrow(props) {
   const { className, onClick } = props;
   return (
     <div
-      className={`${className} absolute top-1/2 left-0 z-50 transform -translate-y-1/2 cursor-pointer`}
+      className={`${className} absolute top-1/2 left-3 z-50 transform -translate-y-1/2 cursor-pointer`}
       onClick={onClick}
     >
       <svg
