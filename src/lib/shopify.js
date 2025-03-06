@@ -13,6 +13,45 @@ export const graphQLClient = new GraphQLClient(endpoint, {
   },
 });
 
+
+export async function searchProducts(query) {
+  const gqlQuery = `
+    query searchProducts($query: String!) {
+      products(query: $query, first: 20) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            images(first: 1) {
+              edges {
+                node {
+                  url
+                  altText
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const variables = {
+    query,
+  };
+
+  const response = await graphQLClient.request(gqlQuery, variables);
+  return response.products.edges.map((edge) => edge.node);
+}
+
 // Get featured products for homepage
 export async function getFeaturedProducts() {
   const query = `

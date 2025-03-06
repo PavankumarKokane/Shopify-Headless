@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { data, Link } from 'react-router';
-import { ShoppingCart, Menu, X } from 'lucide-react';
-import { useCart } from '../context/CartContext';
+import React, { useState } from "react";
+import { data, Link } from "react-router";
+import { ShoppingCart, Menu, X } from "lucide-react";
+import { useCart } from "../context/CartContext";
 import logo from "../assets/rupa_logo.png";
-
+import SearchBar from '../components/SearchBar';
 
 export default function Layout({ children }) {
   const { cartCount } = useCart();
@@ -16,7 +16,7 @@ export default function Layout({ children }) {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link to="/" className="w-24 py-3 block">
-                <img src={logo} alt="logo" className='w-full h-auto' />
+                <img src={logo} alt="logo" className="w-full h-auto" />
               </Link>
               <nav className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <Link
@@ -46,6 +46,9 @@ export default function Layout({ children }) {
               </nav>
             </div>
             <div className="flex items-center">
+            <div className="pt-4 pb-3 px-4">
+                <SearchBar />
+              </div>
               <div className="flex-shrink-0">
                 <Link
                   to="/cart"

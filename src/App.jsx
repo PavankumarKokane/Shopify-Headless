@@ -7,6 +7,7 @@ import CollectionsPage from "./pages/CollectionsPage";
 import CollectionPage from "./pages/CollectionPage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
+import SearchPage from './pages/SearchPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/collections/:handle" element={<CollectionPage />} />
               <Route path="/products/:handle" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/search" element={<SearchPage />} />
             </Routes>
           </Layout>
         </CartProvider>

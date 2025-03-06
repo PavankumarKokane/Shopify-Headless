@@ -20,7 +20,7 @@ export default function HomePage() {
           getCollections()
         ]);
         setFeaturedProducts(productsData);
-        setCollections(collectionsData.slice(0, 4)); // Only show first 3 collections
+        setCollections(collectionsData.slice(0, 4)); // Only show first 4 collections
       } catch (err) {
         console.error('Error fetching data:', err);
         setError('Failed to load products. Please try again later.');
