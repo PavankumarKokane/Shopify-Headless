@@ -47,7 +47,7 @@ This is a headless Shopify store built using **React + Vite** for a fast and mod
    ```
 2. Navigate to the project folder:
    ```sh
-   cd shopify-headless-store
+   cd Shopify-Headless
    ```
 3. Install dependencies:
    ```sh
